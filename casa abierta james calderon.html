@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Fútbol</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #4CAF50;
+        }
+        canvas {
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let player;
+        let ball;
+        let goal;
+        let playerSpeed = 5;
+
+        function setup() {
+            createCanvas(800, 600);
+            player = createVector(width / 2, height - 50);
+            ball = createVector(width / 2, height / 2);
+            goal = createVector(width / 2 - 50, 50);
+        }
+
+        function draw() {
+            background(0, 128, 0);
+            drawGoal();
+            drawPlayer();
+            drawBall();
+            checkGoal();
+        }
+
+        function drawPlayer() {
+            fill(255, 0, 0);
+            rect(player.x, player.y, 50, 50);
+        }
+
+        function drawBall() {
+            fill(255, 255, 0);
+            ellipse(ball.x, ball.y, 30, 30);
+        }
+
+        function drawGoal() {
+            fill(255);
+            rect(goal.x, goal.y, 100, 10);
+        }
+
+        function checkGoal() {
+            if (ball.x > goal.x && ball.x < goal.x + 100 && ball.y < goal.y + 10) {
+                fill(0);
+                textSize(32);
+                textAlign(CENTER, CENTER);
+                text("¡Gol!", width / 2, height / 2);
+                noLoop();
+            }
+        }
+
+        function keyPressed() {
+            if (keyCode === UP_ARROW) {
+                player.y -= playerSpeed;
+            } else if (keyCode === DOWN_ARROW) {
+                ball.y -= playerSpeed;
+            } else if (keyCode === LEFT_ARROW) {
+                player.x -= playerSpeed;
+            } else if (keyCode === RIGHT_ARROW) {
+                player.x += playerSpeed;
+            }
+        }
+    </script>
+</body>
+</html>
